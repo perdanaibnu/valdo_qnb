@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbValdoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbValdo.dbo.m_agunan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="m_agunan">
+          <Key>
+            <PropertyRef Name="agunan_id" />
+            <PropertyRef Name="account_no" />
+            <PropertyRef Name="customer_id" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="amount" />
+          </Key>
+          <Property Name="agunan_id" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="account_no" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="customer_id" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="customer_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="customer_address" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_funding">
+          <Key>
+            <PropertyRef Name="funding_id" />
+          </Key>
+          <Property Name="funding_id" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="account_no" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="customer_id" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="balance" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_lending">
+          <Key>
+            <PropertyRef Name="lending_id" />
+          </Key>
+          <Property Name="lending_id" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="account_no" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="customer_id" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="balance" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="plafond" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="dbValdoModelStoreContainer">
+          <EntitySet Name="m_customer" EntityType="Self.m_customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_funding" EntityType="Self.m_funding" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_lending" EntityType="Self.m_lending" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_agunan" EntityType="Self.m_agunan" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [m_agunan].[agunan_id] AS [agunan_id], 
+    [m_agunan].[account_no] AS [account_no], 
+    [m_agunan].[customer_id] AS [customer_id], 
+    [m_agunan].[type] AS [type], 
+    [m_agunan].[amount] AS [amount]
+    FROM [dbo].[m_agunan] AS [m_agunan]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbValdoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="m_customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_funding">
+          <Key>
+            <PropertyRef Name="funding_id" />
+          </Key>
+          <Property Name="funding_id" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="balance" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_lending">
+          <Key>
+            <PropertyRef Name="lending_id" />
+          </Key>
+          <Property Name="lending_id" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="balance" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="plafond" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_agunan">
+          <Key>
+            <PropertyRef Name="agunan_id" />
+            <PropertyRef Name="account_no" />
+            <PropertyRef Name="customer_id" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="amount" />
+          </Key>
+          <Property Name="agunan_id" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="m_customer" EntityType="Self.m_customer" />
+          <EntitySet Name="m_funding" EntityType="Self.m_funding" />
+          <EntitySet Name="m_lending" EntityType="Self.m_lending" />
+          <EntitySet Name="m_agunan" EntityType="Self.m_agunan" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbValdoModelStoreContainer" CdmEntityContainer="dbEntities">
+          <EntitySetMapping Name="m_customer">
+            <EntityTypeMapping TypeName="dbValdoModel.m_customer">
+              <MappingFragment StoreEntitySet="m_customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_funding">
+            <EntityTypeMapping TypeName="dbValdoModel.m_funding">
+              <MappingFragment StoreEntitySet="m_funding">
+                <ScalarProperty Name="funding_id" ColumnName="funding_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_lending">
+            <EntityTypeMapping TypeName="dbValdoModel.m_lending">
+              <MappingFragment StoreEntitySet="m_lending">
+                <ScalarProperty Name="lending_id" ColumnName="lending_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="plafond" ColumnName="plafond" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_agunan">
+            <EntityTypeMapping TypeName="dbValdoModel.m_agunan">
+              <MappingFragment StoreEntitySet="m_agunan">
+                <ScalarProperty Name="agunan_id" ColumnName="agunan_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

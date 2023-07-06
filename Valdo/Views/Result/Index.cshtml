@@ -1,0 +1,13 @@
+﻿@RenderPage("~/Views/Shared/_Index.cshtml")
+@section scripts {
+    <script language="javascript" type="text/javascript">
+        is_index = true;
+    </script>
+}
+@section scripts2 {
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $('a').filter(function (index) { return $(this).text() === "Create New"; }).hide();
+        });
+    </script>
+}

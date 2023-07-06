@@ -1,0 +1,127 @@
+﻿@model Valdo.Models.m_funding
+<section class="content-header"><h1>Form @ViewBag.Title</h1></section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary form-horizontal">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="box-body in-header">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.Hidden("action")
+                        @Html.Hidden("closing")
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label text-red">@(ViewBag.action)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">ID Funding</label>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(m => m.funding_id, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "5", @required = "" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Account No</label>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(m => m.account_no, new { htmlAttributes = new { @class = "form-control", @type = "text", @maxlength = "10", @required = "" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">ID Customer</label>
+                                        <div class="col-md-8">
+                                            @Html.DropDownListFor(model => model.customer_id, null, new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Balance</label>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(m => m.balance, new { htmlAttributes = new { @class = "form-control money", @type = "text", @required = "" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                    </div>
+                    <div class="pull-right">
+                        @{
+                            <button type="submit" class="btn btn-success btn-md" id="btnSave"><b>Save</b></button>
+                            <a href="@Url.Action("Index")" type="button" class="btn btn-default btn-md"><b>Cancel</b></a>
+                            if (ViewBag.action == "Update Data")
+                            {
+                                <button type="button" class="btn btn-danger btn-md" id="btnDelete"><b>Delete</b></button>
+                            }
+                        }
+                    </div>
+                            }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $('#funding_id').prop('readonly', $("#action").val() == "Update Data");
+        });
+
+        var url_Form = "@(Url.Action("Form"))"
+        var url_Index = "@(Url.Action("Index"))"
+        $("#btnSave").click(function () {
+            event.preventDefault();
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            var mst = $('form').serializeArray();
+            var tbl = {};
+            jQuery.map(mst, function (n, i) {
+                tbl[n.name] = n.value;
+            });
+
+            var action = $('#action').val();
+            var closing = $('#closing').val("");
+
+            $.ajax({
+                type: "POST",
+                url: url_Form,
+                data: { __RequestVerificationToken: token, tbl, action },
+                success: function (data) {
+                    if (data.result == 'success') {
+                        Swal('Data has been saved!', data.msg, 'success').then((result) => {
+                            location.replace("@(Url.Action("Form", new { id = "" }))" + "/" + data.hdrid );
+                        });
+                    } else {
+                        Swal('Save data failed!', data.msg, 'error');
+                        $("#closing").val('');
+                    }
+                },
+                error: function (err) {
+                    Swal('', err.responseText, 'error');
+                    $("#closing").val('');
+                }
+            });
+        });
+
+        $("#btnDelete").click(function () {
+            DeleteData('funding_id');
+        });
+    </script>
+}
